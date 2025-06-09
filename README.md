@@ -1,6 +1,6 @@
 # Generative Art
 
-![Generative art](/screenshots/cellular-automata.gif)
+![Generative art](/screenshots/cellular-automata2.gif)
 
 ### Description
 
