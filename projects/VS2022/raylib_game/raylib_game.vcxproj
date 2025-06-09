@@ -363,7 +363,8 @@
     <ClCompile Include="CellularAutomata.cpp" />
     <ClCompile Include="Grid.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Rules\CustomRule.cpp" />
+    <ClCompile Include="Rules\ExpandingRule.cpp" />
+    <ClCompile Include="Rules\FocusedRule.cpp" />
     <ClCompile Include="Rules\GameOfLifeRule.cpp" />
     <ClCompile Include="Rules\IRule.cpp">
       <RuntimeLibrary>MultiThreadedDebugDll</RuntimeLibrary>
@@ -447,7 +448,8 @@
     <ClInclude Include="Cell.h" />
     <ClInclude Include="CellularAutomata.h" />
     <ClInclude Include="Grid.h" />
-    <ClInclude Include="Rules\CustomRule.h" />
+    <ClInclude Include="Rules\ExpandingRule.h" />
+    <ClInclude Include="Rules\FocusedRule.h" />
     <ClInclude Include="Rules\GameOfLifeRule.h" />
     <ClInclude Include="Rules\IRule.h" />
   </ItemGroup>

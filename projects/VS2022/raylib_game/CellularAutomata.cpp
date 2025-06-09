@@ -18,7 +18,7 @@ void CellularAutomata::Randomize(float probability)
             for (int z = 0; z < _grid->_depth; z++)
             {
                 CellState state = CellState::Dead;
-                float random = rand() % 1000 / 1000.f;
+                float random = static_cast<float>(rand()) / static_cast<float>(RAND_MAX);
                 if (random < probability)
                 {
                     state = CellState::Alive;

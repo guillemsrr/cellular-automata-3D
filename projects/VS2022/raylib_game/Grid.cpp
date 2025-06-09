@@ -25,7 +25,6 @@ void Grid::SetDimensions(int width, int height, int depth)
             for (int x = 0; x < width; ++x)
             {
                 int idx = Index(x, y, z);
-
                 _cells[idx] = Cell(x, y, z);
                 Vector3 position = {
                     static_cast<float>(x) - offset.x,
@@ -37,7 +36,6 @@ void Grid::SetDimensions(int width, int height, int depth)
         }
     }
 
-    // Cache neighbors for each cell
     for (int z = 0; z < depth; ++z)
     {
         for (int y = 0; y < height; ++y)
@@ -50,26 +48,7 @@ void Grid::SetDimensions(int width, int height, int depth)
                     continue;
                 }
 
-                std::vector<Cell*> neighbors;
-                for (int dz_offset = -1; dz_offset <= 1; ++dz_offset)
-                {
-                    for (int dy_offset = -1; dy_offset <= 1; ++dy_offset)
-                    {
-                        for (int dx_offset = -1; dx_offset <= 1; ++dx_offset)
-                        {
-                            Cell* neighbor = GetCell(currentCell->GridX + dx_offset,
-                                                     currentCell->GridY + dy_offset,
-                                                     currentCell->GridZ + dz_offset);
-                            if (!neighbor || neighbor == currentCell)
-                            {
-                                continue;
-                            }
-
-                            neighbors.push_back(neighbor);
-                        }
-                    }
-                }
-                currentCell->CachedNeighbors = neighbors;
+                currentCell->CachedNeighbors = GetNeighbors(currentCell);
             }
         }
     }
@@ -78,6 +57,47 @@ void Grid::SetDimensions(int width, int height, int depth)
 int Grid::Index(const int x, const int y, const int z) const
 {
     return x + y * _width + z * _width * _height;
+}
+
+std::vector<Cell*> Grid::GetNeighbors(const Cell* cell)
+{
+    std::vector<Cell*> neighbors;
+
+    if (_neighborhoodType == NeighborhoodType::Moore)
+    {
+        for (int offsetZ = -1; offsetZ <= 1; ++offsetZ)
+        {
+            for (int offsetY = -1; offsetY <= 1; ++offsetY)
+            {
+                for (int offsetX = -1; offsetX <= 1; ++offsetX)
+                {
+                    Cell* neighbor = GetCell(cell->GridX + offsetX, cell->GridY + offsetY, cell->GridZ + offsetZ);
+                    if (!neighbor || neighbor == cell)
+                    {
+                        continue;
+                    }
+                    neighbors.push_back(neighbor);
+                }
+            }
+        }
+    }
+    else
+    {
+        for (const Vector3& offset : offsets)
+        {
+            Cell* neighbor = GetCell(cell->GridX + static_cast<int>(offset.x),
+                                     cell->GridY + static_cast<int>(offset.y),
+                                     cell->GridZ + static_cast<int>(offset.z));
+
+            if (!neighbor || neighbor == cell)
+            {
+                continue;
+            }
+            neighbors.push_back(neighbor);
+        }
+    }
+
+    return neighbors;
 }
 
 Cell* Grid::GetCell(int x, int y, int z)

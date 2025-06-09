@@ -5,6 +5,5 @@
 
 class GameOfLifeRule final : public IRule
 {
-public:
     CellState GetCellState(Cell* cell) override;
 };

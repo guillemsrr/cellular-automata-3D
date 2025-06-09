@@ -1,7 +1,6 @@
-﻿#include "GameOfLifeRule.h"
-#include "../Grid.h"
+﻿#include "ExpandingRule.h"
 
-CellState GameOfLifeRule::GetCellState(Cell* cell)
+CellState ExpandingRule::GetCellState(Cell* cell)
 {
     int neighborCount = 0;
     for (auto neighbor : cell->CachedNeighbors)
@@ -14,7 +13,7 @@ CellState GameOfLifeRule::GetCellState(Cell* cell)
 
     if (cell->IsAlive())
     {
-        if (neighborCount >= 5 && neighborCount <= 7)
+        if (neighborCount >= 4 && neighborCount <= 8)
         {
             return CellState::Alive;
         }
@@ -30,7 +29,7 @@ CellState GameOfLifeRule::GetCellState(Cell* cell)
         return CellState::Decaying;
     }
 
-    if (neighborCount == 6)
+    if (neighborCount >= 6 && neighborCount <= 7)
     {
         return CellState::Alive;
     }

@@ -13,36 +13,51 @@ int Cell::GetState() const
 void Cell::SetState(CellState state)
 {
     _state = state;
+
     if (_state == CellState::Dead)
     {
         CellColor = {0, 0, 0, 0}; // Fully transparent
     }
     else if (_state == CellState::Decaying)
     {
-        CellColor = {0, 220, 0, 128};
+        CellColor = {100, 100, 100, 255};
     }
     else if (_state == CellState::Alive)
     {
-        CellColor = {0, 255, 0, 200};
+        CellColor = {0, 0, 0, 255};
     }
 }
 
-bool Cell::IsAlive()
+bool Cell::IsAlive() const
 {
     return _state == CellState::Alive;
 }
 
-bool Cell::IsDead()
+bool Cell::IsDead() const
 {
     return _state == CellState::Dead;
 }
 
-void Cell::Draw()
+bool Cell::IsDecaying() const
+{
+    return _state == CellState::Decaying && decayTicks > 0;
+}
+
+void Cell::Draw() const
 {
     if (IsDead())
     {
         return;
     }
-    DrawCube(Position, Size, Size, Size, CellColor);
-    DrawCubeWires(Position, Size, Size, Size, BLACK);
+
+    Color drawColor = CellColor;
+
+    if (IsDecaying())
+    {
+        float fade = static_cast<float>(decayTicks) / MaxDecayTicks;
+        drawColor.a = static_cast<unsigned char>(fade * 255.f);
+    }
+
+    DrawCube(Position, Size, Size, Size, drawColor);
+    DrawCubeWires(Position, Size, Size, Size, RAYWHITE);
 }

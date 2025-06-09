@@ -4,33 +4,37 @@
 
 enum class CellState
 {
-    Dead,
     Alive,
-    Decaying
+    Decaying,
+    Dead
 };
+
+static constexpr float Size = 1.f;
+static constexpr int MaxDecayTicks = 6;
 
 class Cell
 {
 public:
     Cell() = default;
-
     Cell(int x, int y, int z);
 
     int GetState() const;
     void SetState(CellState state);
-    bool IsAlive();
-    bool IsDead();
+    bool IsAlive() const;
+    bool IsDead() const;
+    bool IsDecaying() const;
 
     int GridX;
     int GridY;
     int GridZ;
 
     Vector3 Position;
-    float Size = 0.9f;
     Color CellColor;
     std::vector<Cell*> CachedNeighbors;
 
-    void Draw();
+    int decayTicks = 0;
+
+    void Draw() const;
 
 private:
     CellState _state;

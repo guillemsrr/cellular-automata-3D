@@ -6,11 +6,12 @@
 
 #include "CellularAutomata.h"
 #include "Rules/GameOfLifeRule.h"
-#include "Rules/CustomRule.h"
+#include "Rules/ExpandingRule.h"
+#include "Rules/FocusedRule.h"
 
 float lastUpdateTime = 0.f;
 const float updateInterval = 0.2f;
-float probability = 0.1f;
+float probability = 0.2f;
 
 bool ShouldUpdate()
 {
@@ -46,7 +47,9 @@ int main()
     cellularAutomata.SetRule(std::make_shared<GameOfLifeRule>());
     cellularAutomata.Randomize(probability);
 
-    InitWindow(800, 800, "Cellular Automata");
+    int window = 800;
+    window = 2000;
+    InitWindow(window, window, "Cellular Automata");
     SetTargetFPS(60);
 
     Camera camera;
@@ -96,7 +99,13 @@ int main()
         else if (IsKeyPressed(KEY_TWO))
         {
             probability = 0.065f;
-            cellularAutomata.SetRule(std::make_shared<CustomRule>());
+            cellularAutomata.SetRule(std::make_shared<ExpandingRule>());
+            Reset(cellularAutomata);
+        }
+        else if (IsKeyPressed(KEY_THREE))
+        {
+            probability = 0.055f;
+            cellularAutomata.SetRule(std::make_shared<FocusedRule>());
             Reset(cellularAutomata);
         }
 
@@ -133,8 +142,8 @@ int main()
         }
 
         BeginDrawing();
-        
-        ClearBackground({235, 255, 235, 255});
+
+        ClearBackground(RAYWHITE);
         BeginMode3D(camera);
         cellularAutomata.Draw();
         EndMode3D();

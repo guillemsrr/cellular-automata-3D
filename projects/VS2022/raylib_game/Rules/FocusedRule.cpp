@@ -1,7 +1,12 @@
-﻿#include "GameOfLifeRule.h"
-#include "../Grid.h"
+﻿#include "FocusedRule.h"
 
-CellState GameOfLifeRule::GetCellState(Cell* cell)
+FocusedRule::FocusedRule()
+{
+    _neighboursAlive = {2, 6, 9};
+    _neighboursBorn = {5, 8, 9};
+}
+
+CellState FocusedRule::GetCellState(Cell* cell)
 {
     int neighborCount = 0;
     for (auto neighbor : cell->CachedNeighbors)
@@ -14,7 +19,7 @@ CellState GameOfLifeRule::GetCellState(Cell* cell)
 
     if (cell->IsAlive())
     {
-        if (neighborCount >= 5 && neighborCount <= 7)
+        if (std::find(_neighboursAlive.begin(), _neighboursAlive.end(), neighborCount) != _neighboursAlive.end())
         {
             return CellState::Alive;
         }
@@ -30,7 +35,7 @@ CellState GameOfLifeRule::GetCellState(Cell* cell)
         return CellState::Decaying;
     }
 
-    if (neighborCount == 6)
+    if (std::find(_neighboursBorn.begin(), _neighboursBorn.end(), neighborCount) != _neighboursBorn.end())
     {
         return CellState::Alive;
     }

@@ -3,8 +3,7 @@
 #pragma once
 #include "IRule.h"
 
-class CustomRule final : public IRule
+class ExpandingRule final : public IRule
 {
-public:
     CellState GetCellState(Cell* cell) override;
 };
