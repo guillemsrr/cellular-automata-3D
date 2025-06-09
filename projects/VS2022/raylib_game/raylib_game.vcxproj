@@ -359,18 +359,97 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\src\screens.h" />
+    <ClCompile Include="Cell.cpp" />
+    <ClCompile Include="CellularAutomata.cpp" />
+    <ClCompile Include="Grid.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Rules\CustomRule.cpp" />
+    <ClCompile Include="Rules\GameOfLifeRule.cpp" />
+    <ClCompile Include="Rules\IRule.cpp">
+      <RuntimeLibrary>MultiThreadedDebugDll</RuntimeLibrary>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <Optimization>Disabled</Optimization>
+      <SupportJustMyCode>true</SupportJustMyCode>
+      <AssemblerOutput>NoListing</AssemblerOutput>
+      <AssemblerListingLocation>F:\Other\cellular-automata-3D\projects\VS2022\\build\raylib_game\obj\x64\Debug\</AssemblerListingLocation>
+      <UndefineAllPreprocessorDefinitions>false</UndefineAllPreprocessorDefinitions>
+      <BrowseInformation>false</BrowseInformation>
+      <BrowseInformationFile>F:\Other\cellular-automata-3D\projects\VS2022\\build\raylib_game\obj\x64\Debug\</BrowseInformationFile>
+      <CompileAs>Default</CompileAs>
+      <ConformanceMode>Default</ConformanceMode>
+      <DiagnosticsFormat>Column</DiagnosticsFormat>
+      <DisableLanguageExtensions>false</DisableLanguageExtensions>
+      <ErrorReporting>Prompt</ErrorReporting>
+      <ExpandAttributedSource>false</ExpandAttributedSource>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <EnableASAN>false</EnableASAN>
+      <EnableFuzzer>false</EnableFuzzer>
+      <EnableFiberSafeOptimizations>false</EnableFiberSafeOptimizations>
+      <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
+      <EnableVectorLength>NotSet</EnableVectorLength>
+      <FloatingPointModel>Precise</FloatingPointModel>
+      <ForceConformanceInForLoopScope>true</ForceConformanceInForLoopScope>
+      <GenerateModuleDependencies>false</GenerateModuleDependencies>
+      <GenerateSourceDependencies>false</GenerateSourceDependencies>
+      <GenerateXMLDocumentationFiles>false</GenerateXMLDocumentationFiles>
+      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+      <IntrinsicFunctions>false</IntrinsicFunctions>
+      <IgnoreStandardIncludePath>false</IgnoreStandardIncludePath>
+      <LanguageStandard>Default</LanguageStandard>
+      <LanguageStandard_C>Default</LanguageStandard_C>
+      <MinimalRebuild>false</MinimalRebuild>
+      <ModuleDependenciesFile>F:\Other\cellular-automata-3D\projects\VS2022\\build\raylib_game\obj\x64\Debug\</ModuleDependenciesFile>
+      <ModuleOutputFile>F:\Other\cellular-automata-3D\projects\VS2022\\build\raylib_game\obj\x64\Debug\</ModuleOutputFile>
+      <OmitDefaultLibName>false</OmitDefaultLibName>
+      <FavorSizeOrSpeed>Neither</FavorSizeOrSpeed>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+      <ObjectFileName>F:\Other\cellular-automata-3D\projects\VS2022\\build\raylib_game\obj\x64\Debug\</ObjectFileName>
+      <CallingConvention>Cdecl</CallingConvention>
+      <ProgramDataBaseFileName>F:\Other\cellular-automata-3D\projects\VS2022\\build\raylib_game\obj\x64\Debug\vc143.pdb</ProgramDataBaseFileName>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>F:\Other\cellular-automata-3D\projects\VS2022\\build\raylib_game\obj\x64\Debug\raylib_game.pch</PrecompiledHeaderOutputFile>
+      <PreprocessToFile>false</PreprocessToFile>
+      <PreprocessKeepComments>false</PreprocessKeepComments>
+      <PreprocessSuppressLineNumbers>false</PreprocessSuppressLineNumbers>
+      <RemoveUnreferencedCodeData>true</RemoveUnreferencedCodeData>
+      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
+      <ShowIncludes>false</ShowIncludes>
+      <SourceDependenciesFile>F:\Other\cellular-automata-3D\projects\VS2022\\build\raylib_game\obj\x64\Debug\</SourceDependenciesFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <BufferSecurityCheck>true</BufferSecurityCheck>
+      <SmallerTypeCheck>false</SmallerTypeCheck>
+      <SpectreMitigation>false</SpectreMitigation>
+      <StructMemberAlignment>Default</StructMemberAlignment>
+      <TrackerLogDirectory>F:\Other\cellular-automata-3D\projects\VS2022\\build\raylib_game\obj\x64\Debug\raylib_game.tlog\</TrackerLogDirectory>
+      <TranslateIncludes>false</TranslateIncludes>
+      <MinimalRebuildFromTracking>true</MinimalRebuildFromTracking>
+      <TreatWarningAsError>false</TreatWarningAsError>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <UseFullPaths>true</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <XMLDocumentationFileName>F:\Other\cellular-automata-3D\projects\VS2022\\build\raylib_game\obj\x64\Debug\</XMLDocumentationFileName>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <IntelJCCErratum>false</IntelJCCErratum>
+      <BuildStlModules>false</BuildStlModules>
+      <TreatAngleIncludeAsExternal>false</TreatAngleIncludeAsExternal>
+      <ExternalWarningLevel>InheritWarningLevel</ExternalWarningLevel>
+      <TreatExternalTemplatesAsInternal>true</TreatExternalTemplatesAsInternal>
+      <DisableAnalyzeExternal>false</DisableAnalyzeExternal>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_DEBUG;_CONSOLE;PLATFORM_DESKTOP;_UNICODE;UNICODE;</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>F:\Other\cellular-automata-3D\projects\VS2022\..\..\src;F:\Other\cellular-automata-3D\projects\VS2022\..\..\src\external;F:\Other\cellular-automata-3D\projects\VS2022\..\..\..\raylib\src;</AdditionalIncludeDirectories>
+      <AdditionalOptions>/FS </AdditionalOptions>
+      <LinkCompiled>true</LinkCompiled>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\src\raylib_game.c" />
-    <ClCompile Include="..\..\..\src\screen_logo.c" />
-    <ClCompile Include="..\..\..\src\screen_title.c" />
-    <ClCompile Include="..\..\..\src\screen_options.c" />
-    <ClCompile Include="..\..\..\src\screen_gameplay.c" />
-    <ClCompile Include="..\..\..\src\screen_ending.c" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="..\..\..\src\raylib_game.rc" />
+    <ClInclude Include="Cell.h" />
+    <ClInclude Include="CellularAutomata.h" />
+    <ClInclude Include="Grid.h" />
+    <ClInclude Include="Rules\CustomRule.h" />
+    <ClInclude Include="Rules\GameOfLifeRule.h" />
+    <ClInclude Include="Rules\IRule.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
