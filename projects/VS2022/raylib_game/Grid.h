@@ -26,7 +26,7 @@ private:
 
     NeighborhoodType _neighborhoodType = NeighborhoodType::Moore;
     
-    const std::vector<Vector3> offsets = {{1, 0, 0}, {-1, 0, 0}, {0, 1, 0}, {0, -1, 0}, {0, 0, 1}, {0, 0, -1}};
+    const std::vector<Vector3> VonNeumannOffsets = {{1, 0, 0}, {-1, 0, 0}, {0, 1, 0}, {0, -1, 0}, {0, 0, 1}, {0, 0, -1}};
 
     int Index(int x, int y, int z) const;
     std::vector<Cell*> GetNeighbors(const Cell* cell);

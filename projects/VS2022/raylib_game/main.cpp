@@ -5,6 +5,8 @@
 #include <memory>
 
 #include "CellularAutomata.h"
+
+#include "Rules/InfiniteRule.h"
 #include "Rules/GameOfLifeRule.h"
 #include "Rules/ExpandingRule.h"
 #include "Rules/FocusedRule.h"
@@ -44,11 +46,11 @@ int main()
     grid.SetDimensions(width, height, depth);
     cellularAutomata.SetGrid(&grid);
 
-    cellularAutomata.SetRule(std::make_shared<GameOfLifeRule>());
+    cellularAutomata.SetRule(std::make_shared<InfiniteRule>());
     cellularAutomata.Randomize(probability);
 
     int window = 800;
-    window = 2000;
+    //window = 2000;
     InitWindow(window, window, "Cellular Automata");
     SetTargetFPS(60);
 
@@ -92,17 +94,23 @@ int main()
 
         if (IsKeyPressed(KEY_ONE))
         {
+            probability = 0.2f;
+            cellularAutomata.SetRule(std::make_shared<InfiniteRule>());
+            Reset(cellularAutomata);
+        }
+        else if (IsKeyPressed(KEY_TWO))
+        {
             probability = 0.3f;
             cellularAutomata.SetRule(std::make_shared<GameOfLifeRule>());
             Reset(cellularAutomata);
         }
-        else if (IsKeyPressed(KEY_TWO))
+        else if (IsKeyPressed(KEY_THREE))
         {
             probability = 0.065f;
             cellularAutomata.SetRule(std::make_shared<ExpandingRule>());
             Reset(cellularAutomata);
         }
-        else if (IsKeyPressed(KEY_THREE))
+        else if (IsKeyPressed(KEY_FOUR))
         {
             probability = 0.055f;
             cellularAutomata.SetRule(std::make_shared<FocusedRule>());

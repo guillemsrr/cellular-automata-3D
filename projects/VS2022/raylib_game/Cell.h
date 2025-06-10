@@ -32,7 +32,7 @@ public:
     Color CellColor;
     std::vector<Cell*> CachedNeighbors;
 
-    int decayTicks = 0;
+    int decayTicks;
 
     void Draw() const;
 

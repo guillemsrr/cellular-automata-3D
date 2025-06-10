@@ -83,7 +83,7 @@ std::vector<Cell*> Grid::GetNeighbors(const Cell* cell)
     }
     else
     {
-        for (const Vector3& offset : offsets)
+        for (const Vector3& offset : VonNeumannOffsets)
         {
             Cell* neighbor = GetCell(cell->GridX + static_cast<int>(offset.x),
                                      cell->GridY + static_cast<int>(offset.y),

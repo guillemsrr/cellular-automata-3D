@@ -1,7 +1,8 @@
 ﻿#include "Cell.h"
 #include "raylib.h"
 
-Cell::Cell(int x, int y, int z): CellColor(GREEN), _state(CellState::Dead), GridX(x), GridY(y), GridZ(z), Position()
+Cell::Cell(int x, int y, int z): CellColor(GREEN), decayTicks(MaxDecayTicks), _state(CellState::Dead), GridX(x),
+                                 GridY(y), GridZ(z), Position()
 {
 }
 
@@ -12,11 +13,16 @@ int Cell::GetState() const
 
 void Cell::SetState(CellState state)
 {
+    if (state == CellState::Decaying && _state != CellState::Decaying)
+    {
+        decayTicks = MaxDecayTicks;
+    }
+
     _state = state;
 
     if (_state == CellState::Dead)
     {
-        CellColor = {0, 0, 0, 0}; // Fully transparent
+        CellColor = {0, 0, 0, 0};
     }
     else if (_state == CellState::Decaying)
     {
