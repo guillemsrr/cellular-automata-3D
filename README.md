@@ -1,4 +1,4 @@
-# Generative Art
+# Cellular automata in 3D
 
 ![Generative art](/screenshots/cellular-automata3.gif)
 
