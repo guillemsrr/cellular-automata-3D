@@ -12,10 +12,7 @@ public:
     Cell* GetCell(int x, int y, int z);
     void SetDimensions(int width, int height, int depth);
 
-    int _width, _height, _depth;
-
-    std::vector<Cell> _cells;
-
+    int Width, Height, Depth;
 
 private:
     enum NeighborhoodType
@@ -24,9 +21,18 @@ private:
         VonNeumann,
     };
 
+    std::vector<Cell> _cells;
+
     NeighborhoodType _neighborhoodType = NeighborhoodType::Moore;
-    
-    const std::vector<Vector3> VonNeumannOffsets = {{1, 0, 0}, {-1, 0, 0}, {0, 1, 0}, {0, -1, 0}, {0, 0, 1}, {0, 0, -1}};
+
+    const std::vector<Vector3> VonNeumannOffsets = {
+        {1, 0, 0},
+        {-1, 0, 0},
+        {0, 1, 0},
+        {0, -1, 0},
+        {0, 0, 1},
+        {0, 0, -1}
+    };
 
     int Index(int x, int y, int z) const;
     std::vector<Cell*> GetNeighbors(const Cell* cell);

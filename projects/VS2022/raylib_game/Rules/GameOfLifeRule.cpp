@@ -14,23 +14,19 @@ CellState GameOfLifeRule::GetCellState(Cell* cell)
 
     if (cell->IsAlive())
     {
-        if (neighborCount >= 5 && neighborCount <= 7)
+        if (neighborCount == 2 || neighborCount == 3)
         {
             return CellState::Alive;
         }
-        return CellState::Decaying;
+        return CellState::Dead;
     }
 
     if (cell->IsDecaying())
     {
-        if (--cell->decayTicks <= 0)
-        {
-            return CellState::Dead;
-        }
-        return CellState::Decaying;
+        return CellState::Dead; // Or remove this block entirely if you want strict Conway behavior
     }
 
-    if (neighborCount == 6)
+    if (neighborCount == 3)
     {
         return CellState::Alive;
     }

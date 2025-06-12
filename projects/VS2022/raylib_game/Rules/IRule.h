@@ -3,12 +3,15 @@
 #pragma once
 #include "../Cell.h"
 
-class Grid;
-
 class IRule
 {
 public:
     virtual ~IRule() = default;
+
+    virtual const char* GetName()
+    {
+        return "Rule";
+    }
 
     virtual CellState GetCellState(Cell* cell) = 0;
 };

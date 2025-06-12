@@ -22,7 +22,7 @@ CellState ExpandingRule::GetCellState(Cell* cell)
 
     if (cell->IsDecaying())
     {
-        if (--cell->decayTicks <= 0)
+        if (cell->GetDecayTicks() <= 0)
         {
             return CellState::Dead;
         }

@@ -3,7 +3,7 @@
 InfiniteRule::InfiniteRule()
 {
     _neighboursAlive = {6, 7, 8, 9};
-    _neighboursBorn = {4, 6, 8, 9};
+    _neighboursBorn = {4, 6, 9};
 }
 
 CellState InfiniteRule::GetCellState(Cell* cell)
@@ -28,8 +28,7 @@ CellState InfiniteRule::GetCellState(Cell* cell)
 
     if (cell->IsDecaying())
     {
-        cell->decayTicks--;
-        if (cell->decayTicks <= 0)
+        if (cell->GetDecayTicks() <= 0)
         {
             return CellState::Dead;
         }

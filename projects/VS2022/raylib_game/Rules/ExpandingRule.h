@@ -5,5 +5,9 @@
 
 class ExpandingRule final : public IRule
 {
+    const char* GetName() override
+    {
+        return "Expanding";
+    }
     CellState GetCellState(Cell* cell) override;
 };

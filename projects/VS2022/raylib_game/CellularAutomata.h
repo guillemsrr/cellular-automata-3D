@@ -9,14 +9,21 @@ class CellularAutomata
 {
 public:
     CellularAutomata();
+    void Initialize();
     void SetRule(std::shared_ptr<IRule> rule);
-    void Randomize(float probability = 0.2f);
+    void SetDefault();
+    void Randomize();
     void Update();
     void Draw() const;
 
-    void SetGrid(Grid* grid);
+    Vector3 GetDimensions() const;
+    void SetAliveProbability(float probability);
+    void SetDimensions(int x, int y, int z);
+    void AddDimensions(int x, int y, int z);
+    IRule* GetRule();
 
 private:
+    float _probability;
     Grid* _grid;
-    std::shared_ptr<IRule> rule;
+    std::shared_ptr<IRule> _rule;
 };

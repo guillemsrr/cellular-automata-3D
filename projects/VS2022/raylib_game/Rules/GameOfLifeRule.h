@@ -5,5 +5,10 @@
 
 class GameOfLifeRule final : public IRule
 {
+    const char* GetName() override
+    {
+        return "Game of Life";
+    }
+
     CellState GetCellState(Cell* cell) override;
 };

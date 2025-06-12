@@ -12,8 +12,10 @@
 #include "Rules/FocusedRule.h"
 
 float lastUpdateTime = 0.f;
-const float updateInterval = 0.2f;
-float probability = 0.2f;
+const float updateInterval = 0.1f;
+bool autoUpdate = true;
+Camera camera;
+const int fontSize = 20;
 
 bool ShouldUpdate()
 {
@@ -30,40 +32,33 @@ bool ShouldUpdate()
 void Reset(CellularAutomata& cellularAutomata)
 {
     lastUpdateTime = GetTime();
-    cellularAutomata.Randomize(probability);
+    cellularAutomata.Randomize();
+    camera.target = {0.0f, cellularAutomata.GetDimensions().y / 2.f, 0.0f};
 }
 
 int main()
 {
-    int width = 30;
-    int height = 30;
-    int depth = width;
     int addition = 5;
-    bool autoUpdate = true;
 
     CellularAutomata cellularAutomata;
-    Grid grid;
-    grid.SetDimensions(width, height, depth);
-    cellularAutomata.SetGrid(&grid);
-
+    cellularAutomata.Initialize();
     cellularAutomata.SetRule(std::make_shared<InfiniteRule>());
-    cellularAutomata.Randomize(probability);
 
     int window = 800;
     //window = 2000;
     InitWindow(window, window, "Cellular Automata");
     SetTargetFPS(60);
 
-    Camera camera;
-    camera.target = {0.0f, height / 2.f, 0.0f};
     camera.up = {0.0f, 1.0f, 0.0f};
     camera.fovy = 45.0f;
     camera.projection = CAMERA_PERSPECTIVE;
     float angleYaw = 0.0f;
     float anglePitch = 20.0f * DEG2RAD;
-    float camDistance = width * 3.f;
+    float camDistance = cellularAutomata.GetDimensions().x * 3.f;
 
     Vector2 lastMouse = GetMousePosition();
+
+    Reset(cellularAutomata);
 
     while (!WindowShouldClose())
     {
@@ -79,10 +74,10 @@ int main()
         }
 
         camDistance -= GetMouseWheelMove();
-        camDistance = Clamp(camDistance, 2.0f, width * 100.f);
+        camDistance = Clamp(camDistance, 2.0f, cellularAutomata.GetDimensions().x * 100.f);
 
         float x = camDistance * cosf(anglePitch) * sinf(angleYaw);
-        float y = height / 2.f + camDistance * sinf(anglePitch);
+        float y = cellularAutomata.GetDimensions().y / 2.f + camDistance * sinf(anglePitch);
         float z = camDistance * cosf(anglePitch) * cosf(angleYaw);
 
         camera.position = Vector3{x, y, z};
@@ -94,27 +89,44 @@ int main()
 
         if (IsKeyPressed(KEY_ONE))
         {
-            probability = 0.2f;
+            cellularAutomata.SetDefault();
             cellularAutomata.SetRule(std::make_shared<InfiniteRule>());
             Reset(cellularAutomata);
         }
         else if (IsKeyPressed(KEY_TWO))
         {
-            probability = 0.3f;
+            cellularAutomata.SetDefault();
+            cellularAutomata.SetAliveProbability(0.5f);
+            cellularAutomata.SetDimensions(60, 60, 1);
             cellularAutomata.SetRule(std::make_shared<GameOfLifeRule>());
             Reset(cellularAutomata);
         }
         else if (IsKeyPressed(KEY_THREE))
         {
-            probability = 0.065f;
+            cellularAutomata.SetDefault();
+            cellularAutomata.SetAliveProbability(0.065f);
             cellularAutomata.SetRule(std::make_shared<ExpandingRule>());
             Reset(cellularAutomata);
         }
         else if (IsKeyPressed(KEY_FOUR))
         {
-            probability = 0.055f;
+            cellularAutomata.SetDefault();
+            cellularAutomata.SetAliveProbability(0.055f);
             cellularAutomata.SetRule(std::make_shared<FocusedRule>());
             Reset(cellularAutomata);
+        }
+        else if (IsKeyPressed(KEY_FIVE))
+        {
+            cellularAutomata.SetDefault();
+            cellularAutomata.SetAliveProbability(0.055f);
+            cellularAutomata.SetRule(std::make_shared<InfiniteRule>());
+            Reset(cellularAutomata);
+        }
+
+        if (IsKeyPressed(KEY_C))
+        {
+            Cell::AliveColor = DARKGREEN;
+            Cell::DecayingColor = GREEN;
         }
 
         if (autoUpdate)
@@ -134,18 +146,12 @@ int main()
 
         if (IsKeyPressed(KEY_UP))
         {
-            width += addition;
-            height += addition;
-            depth += addition;
-            grid.SetDimensions(width, height, depth);
+            cellularAutomata.AddDimensions(addition, addition, addition);
             Reset(cellularAutomata);
         }
         else if (IsKeyPressed(KEY_DOWN))
         {
-            width -= addition;
-            height -= addition;
-            depth -= addition;
-            grid.SetDimensions(width, height, depth);
+            cellularAutomata.AddDimensions(-addition, -addition, -addition);
             Reset(cellularAutomata);
         }
 
@@ -155,7 +161,14 @@ int main()
         BeginMode3D(camera);
         cellularAutomata.Draw();
         EndMode3D();
-        DrawFPS(10, 10);
+
+        const char* ruleText = TextFormat("Rule: %s", cellularAutomata.GetRule()->GetName());
+        const char* dimensionUpText = "Dimension ++: Arrow up";
+        const char* dimensionDownText = "Dimension --: Arrow down";
+        DrawText(ruleText, 10, 10, fontSize, BLACK);
+        DrawText(dimensionUpText, 10, 40, fontSize, BLACK);
+        DrawText(dimensionDownText, 10, 80, fontSize, BLACK);
+        DrawFPS(window - 100, 10);
         EndDrawing();
     }
 

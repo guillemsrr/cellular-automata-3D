@@ -9,6 +9,11 @@ public:
     FocusedRule();
 
 private:
+    const char* GetName() override
+    {
+        return "Focused";
+    }
+    
     std::vector<int> _neighboursAlive;
     std::vector<int> _neighboursBorn;
     CellState GetCellState(Cell* cell) override;

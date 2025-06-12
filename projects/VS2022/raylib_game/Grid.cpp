@@ -1,14 +1,27 @@
 ﻿#include "Grid.h"
 
-Grid::Grid() : _width(5), _height(5), _depth(5)
+Grid::Grid() : Width(5), Height(5), Depth(5)
 {
 }
 
 void Grid::SetDimensions(int width, int height, int depth)
 {
-    _width = width;
-    _height = height;
-    _depth = depth;
+    if (width <= 0)
+    {
+        width = 1;
+    }
+    if (height <= 0)
+    {
+        height = 1;
+    }
+    if (depth <= 0)
+    {
+        depth = 1;
+    }
+
+    Width = width;
+    Height = height;
+    Depth = depth;
 
     const int totalSize = width * height * depth;
     Vector3 offset = {static_cast<float>(width) / 2.f, 0.f, static_cast<float>(depth) / 2.f};
@@ -56,7 +69,7 @@ void Grid::SetDimensions(int width, int height, int depth)
 
 int Grid::Index(const int x, const int y, const int z) const
 {
-    return x + y * _width + z * _width * _height;
+    return x + y * Width + z * Width * Height;
 }
 
 std::vector<Cell*> Grid::GetNeighbors(const Cell* cell)
@@ -102,7 +115,7 @@ std::vector<Cell*> Grid::GetNeighbors(const Cell* cell)
 
 Cell* Grid::GetCell(int x, int y, int z)
 {
-    if (x < 0 || x >= _width || y < 0 || y >= _height || z < 0 || z >= _depth)
+    if (x < 0 || x >= Width || y < 0 || y >= Height || z < 0 || z >= Depth)
     {
         return nullptr;
     }

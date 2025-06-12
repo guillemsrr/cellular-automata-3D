@@ -2,8 +2,8 @@
 
 FocusedRule::FocusedRule()
 {
-    _neighboursAlive = {2, 6, 9};
-    _neighboursBorn = {5, 8, 9};
+    _neighboursAlive = {6, 7, 8, 9};
+    _neighboursBorn = {4, 7, 9};
 }
 
 CellState FocusedRule::GetCellState(Cell* cell)
@@ -28,7 +28,7 @@ CellState FocusedRule::GetCellState(Cell* cell)
 
     if (cell->IsDecaying())
     {
-        if (--cell->decayTicks <= 0)
+        if (cell->GetDecayTicks() <= 0)
         {
             return CellState::Dead;
         }
