@@ -10,7 +10,7 @@ find_package(raylib REQUIRED)
 add_library(raylib::raylib ALIAS raylib)
 
 # Add sources
-file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS src/*.cpp)
+file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS src/*.cpp src/*.h)
 
 # Executable target
 add_executable(${PROJECT_NAME} ${SOURCES})

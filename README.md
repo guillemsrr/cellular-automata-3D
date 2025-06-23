@@ -23,7 +23,7 @@ cd cellular-automata-3D
 mkdir build && cd build
 
 # Generate Visual Studio solution or Makefiles
-cmake .. -G "Visual Studio 17 2022" -A x64 -Draylib_DIR="C:/path/to/raylib/lib/cmake/raylib"
+cmake .. -G "Visual Studio 17 2022" -A x64 -Draylib_DIR="C:/path/to/raylib/build/install/lib/cmake/raylib"
 
 # Build
 cmake --build . --config Release
