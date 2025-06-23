@@ -1,10 +1,8 @@
 # Cellular automata in 3D
 
-![Generative art](/screenshots/cellular-automata3.gif)
+![Cellular automata](/screenshots/cellular-automata3.gif)
 
 ### Description
-
-Code in projects/VS2022/raylib_game/..
 
 ### Controls
 
@@ -12,6 +10,24 @@ Code in projects/VS2022/raylib_game/..
 - R: restart
 - UP arrow: increase dimension
 - DOWN arrow: decrease dimension
+
+## Build Instructions
+
+This project uses CMake and depends on raylib. Make sure raylib is installed or built locally.
+```bash
+# Clone project
+git clone https://github.com/yourusername/cellular-automata-3D.git
+cd cellular-automata-3D
+
+# Create build directory
+mkdir build && cd build
+
+# Generate Visual Studio solution or Makefiles
+cmake .. -G "Visual Studio 17 2022" -A x64 -Draylib_DIR="C:/path/to/raylib/lib/cmake/raylib"
+
+# Build
+cmake --build . --config Release
+```
 
 ### License
 
