@@ -2,8 +2,6 @@
 
 ![Cellular automata](/screenshots/cellular-automata3.gif)
 
-### Description
-
 ### Controls
 
 - Click buttons 1,2,3,4 to try different outputs
@@ -15,10 +13,6 @@
 
 This project uses CMake and depends on raylib. Make sure raylib is installed or built locally.
 ```bash
-# Clone project
-git clone https://github.com/yourusername/cellular-automata-3D.git
-cd cellular-automata-3D
-
 # Create build directory
 mkdir build && cd build
 
